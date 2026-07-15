@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Discord-style custom scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #1e2124;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #36393f;
+}
+
+/* Discord font stack */
+body {
+  font-family: 'gg sans', 'Noto Sans', Whitney, 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;
+  background-color: #313338;
+  color: #dcddde;
+}
+
+/* Discord message hover */
+.discord-message:hover {
+  background-color: #2e3035;
+}
+
+/* Smooth transitions */
+* {
+  transition-property: background-color, border-color, color, opacity;
+  transition-duration: 100ms;
+}
+
+/* Discord input focus glow */
+.discord-input:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+/* Hide default scrollbar for Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #1e2124 transparent;
+}
