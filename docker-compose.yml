@@ -20,13 +20,13 @@ services:
     image: dattarahegaonkar09/online-chatting-app-backend:latest
     container_name: backend
     ports:
-      - "5001:5001"
-    depends_on:
-      - mongodb
+      - "5001:5001"    
     env_file:
       - ./backend/.env
     networks:
       - chatapp-network
+    depends_on:
+      - mongodb
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:5001/health"]
@@ -63,7 +63,7 @@ services:
     command:
       - "--config.file=/etc/prometheus/prometheus.yml"
     volumes:
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
     networks:
       - chatapp-network
     restart: unless-stopped
@@ -117,5 +117,3 @@ volumes:
 
   grafana-data:
     name: grafana-data
-
-
