@@ -1,7 +1,6 @@
 services:
   frontend:
-    build:
-      context: ./frontend
+    image: dattarahegaonkar09/online-chatting-app-frontend:latest
     container_name: frontend
     ports:
       - "80:80"
@@ -18,8 +17,7 @@ services:
       start_period: 10s
 
   backend:
-    build:
-      context: ./backend
+    image: dattarahegaonkar09/online-chatting-app-backend:latest
     container_name: backend
     ports:
       - "5001:5001"
@@ -87,7 +85,6 @@ services:
       - chatapp-network
     restart: unless-stopped
 
-
 networks:
   chatapp-network:
     name: chatapp-network
@@ -96,3 +93,5 @@ networks:
 volumes:
   mongo-data:
     name: mongo-data
+
+
