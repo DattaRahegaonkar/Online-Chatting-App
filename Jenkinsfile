@@ -29,6 +29,7 @@ pipeline {
                 COOKIE_SECURE=$COOKIE_SECURE
                 CLIENT_ORIGIN=$CLIENT_ORIGIN
                 EOF
+                
                 '''
             }
         }
