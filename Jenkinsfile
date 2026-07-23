@@ -29,14 +29,16 @@ pipeline {
                 COOKIE_SECURE=$COOKIE_SECURE
                 CLIENT_ORIGIN=$CLIENT_ORIGIN
                 EOF
-                
+
                 '''
             }
         }
 
-        stage("test") {
+        stage("docker compose") {
             steps {
-                echo "testing"
+                sh '''
+                docker compose up -d
+                '''
             }
         }
     }
