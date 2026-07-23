@@ -36,18 +36,6 @@ pipeline {
             }
         }
 
-        stage("docker install") {
-            steps {
-                sh '''
-                sudo apt update
-                sudo apt install docker.io docker-compose-v2 -y
-                sudo usermod -aG docker $USER
-                newgrp docker
-                
-                '''
-            }
-        }
-
         stage("docker compose") {
             steps {
                 sh '''
