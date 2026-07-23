@@ -4,9 +4,15 @@ pipeline {
     stages {
         stage("Cloning") {
             steps {
-                echo "clonging"
+                git url: "https://github.com/DattaRahegaonkar/Online-Chatting-App.git", branch: "main"
             }
 
+        }
+
+        stage("test") {
+            steps {
+                echo "testing"
+            }
         }
     }
 }
