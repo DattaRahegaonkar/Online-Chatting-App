@@ -15,9 +15,8 @@ pipeline {
     stages {
         stage("Cleaning") {
             steps {
-                cleanWs()
+                deleteDir()
             }
-
         }
 
         stage("Cloning") {
