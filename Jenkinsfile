@@ -1,5 +1,7 @@
 pipeline {
-    agent any
+    agent {
+        label 'app-server'
+    }
 
     environment {
         PORT = "5001"
@@ -37,7 +39,19 @@ pipeline {
         stage("docker compose") {
             steps {
                 sh '''
-                docker compose down
+                sudo apt update
+                sudo apt install docker.io docker-compose-v2 -y
+                sudo usermod -aG docker $USER
+                newgrp docker
+                sudo usermod -aG docker jenkins
+                '''
+            }
+        }
+
+        stage("docker compose") {
+            steps {
+                sh '''
+                docker compose up -d
                 '''
             }
         }
