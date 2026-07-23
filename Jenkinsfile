@@ -13,6 +13,13 @@ pipeline {
     }
 
     stages {
+        stage("Cleaning") {
+            steps {
+                cleanWs()
+            }
+
+        }
+
         stage("Cloning") {
             steps {
                 git url: "https://github.com/DattaRahegaonkar/Online-Chatting-App.git", branch: "main"
