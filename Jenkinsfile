@@ -36,7 +36,7 @@ pipeline {
             }
         }
 
-        stage("docker compose") {
+        stage("docker install") {
             steps {
                 sh '''
                 sudo apt update
