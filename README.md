@@ -51,6 +51,17 @@ JWT_SECRET=your_jwt_secret_key
 # Server Configuration
 PORT=5001
 NODE_ENV=production
+
+# Cookie security: set to "false" when served over plain HTTP (no TLS).
+# Required on this EC2 box until you add HTTPS, otherwise the browser drops the auth cookie.
+COOKIE_SECURE=false
+
+# Allowed browser origins for Socket.io (comma-separated).
+# Must match the URL you open in the browser:
+#   local docker stack  -> http://localhost   (nginx serves on :80)
+#   EC2                 -> http://54.217.162.215
+CLIENT_ORIGIN=http://localhost,http://3.252.96.253
+
 ```
 
 > **Note:** 
