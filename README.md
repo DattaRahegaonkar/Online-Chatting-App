@@ -116,7 +116,7 @@ Follow these steps to build and run the application:
 cd Online-Chatting-App
 ```
 ```bash
-docker-compose up -d --build
+docker compose up -d --build
 ```
 
 2. Access the application in your browser:
@@ -128,17 +128,49 @@ http://localhost
 
 ### To Verify the conncetion between backend and databse:
 ```bash
-docker-compose logs -f
+docker compose logs -f
 ```
+### AWS Infrastructure Creation and Deployment of Application
 
-### Once the backend and frontend containers are running, you can access the application in your browser:
-
-`Frontend: http://localhost`
-
-
-You can now interact with the real-time chat app and start messaging!
+#### Infrastructure creation and jenkins deployment on baston host
 
 ---
+
+1. Move to `terraform` folder to create infrastructure
+```bash
+cd terraform
+```
+
+2. create infra
+```bash
+terraform apply --auto-approve
+```
+
+3. move the jenkins installation script to baston host
+```bash
+scp -i <private-key-name> <jenkins-script> <username>@<ip>:.
+```
+
+4. ssh into baston host
+```bash
+ssh -i <private-key-name> <username>@<ip>
+```
+
+5. run the script
+```bash
+./jenkins-install.sh
+```
+
+6. jenkins on
+```bash
+http://<public-ip-of-baston-host>:8080
+```
+
+
+
+
+
+
 
 
 ## 🔮 Future Plans
