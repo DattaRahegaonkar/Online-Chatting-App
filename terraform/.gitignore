@@ -1,0 +1,8 @@
+
+
+.terraform
+.terraform.locak.hcl
+terraform.tfstate
+terraform.tfstate.backup
+chatapp-key
+chatapp-key.pub
