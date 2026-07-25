@@ -67,10 +67,41 @@ CLIENT_ORIGIN=http://localhost,http://3.252.96.253
 > **Note:** 
 > - Replace `your_jwt_secret_key` with a strong secret key
 > - For local development without Docker, change `MONGODB_URI` to `mongodb://localhost:27017/chatApp`
-> - You can use command ```echo "Text what you want" | base64
 
-### Clone the Repository
+### Local Deployment
 
+1. Clone the Repository:
+```bash
+git clone https://github.com/DattaRahegaonkar/Online-Chatting-App.git
+```
+
+2. Move to `Online-Chatting-App/backend` Folder and install backend dependancies and run the backend
+```bash
+cd Online-Chatting-App/backend
+npm install
+npm run dev
+```
+
+3. Move to `../frontend` folder to install frontend dependancies and run the frontend
+```bash
+cd ../frontend
+npm install
+npm run dev
+```
+
+4. Application on
+```bash
+http://localhost:5173
+```
+
+5. Backend on
+```bash
+http://localhost:5001
+```
+
+### Docker Deployment
+
+1. Clone the Repository
 ```bash
 git clone https://github.com/DattaRahegaonkar/Online-Chatting-App.git
 ```
@@ -94,69 +125,6 @@ docker-compose up -d --build
 http://localhost
 ```
 ---
-
-## 🛠️ Getting Started
-
-Follow these simple steps to get the project up and running on your local Host using docker.
-
-```bash
-git clone https://github.com/DattaRahegaonkar/Online-Chatting-App.git
-```
-
-```bash
-cd Online-Chatting-App
-```
-## Create a Docker network:
-
-```bash
-docker network create chatapp-network
-```
-
-## 🛠️ Building the Frontend
-
-```bash
-cd frontend
-```
-
-```bash
-docker build -t frontend-image .
-```
-
-### Run the Frontend container:
-
-```bash
-docker run -d --network=chatapp-network  -p 5173:5173 --name frontend frontend-image:latest
-```
-#### The frontend will now be accessible on port 5173.
-
-
-## Run the MongoDB Container:
-
-```bash
-docker run -d --network chatapp-network -e MONGO_INITDB_ROOT_USERNAME=root -e MONGO_INITDB_ROOT_PASSWORD=admin -p 27017:27017 --name mongodb mongo:latest
-```
----
-
-## 🛠️ Building the Backend
-
-```bash
-cd backend
-```
-
-### Build the Backend image:
-
-```bash
-docker build -t backend-image .
-```
-
-### Run the Backend container:
-
-```bash
-docker run -d --network chatapp-network -p 5001:5001 --env-file .env --name backend backend-image:latest 
-```
-#### This will build and run the backend container, exposing the backendAPI on port 5001.
-
-`Backend API: http://localhost:5001`
 
 ### To Verify the conncetion between backend and databse:
 ```bash
@@ -186,13 +154,13 @@ This project is evolving, and here are a few exciting things on the horizon:
 
 ## 📚 Project Snapshots:
 
-![Settings](frontend/public/)
+![Settings](frontend/public/settings.png)
 
-![chat](frontend/public/)
+![chat](frontend/public/chat.png)
 
-![logout](/frontend/public/)
+![signup](/frontend/public/signup.png)
 
-![Login](/frontend/public/)
+![Login](/frontend/public/login.png)
 
 
 
