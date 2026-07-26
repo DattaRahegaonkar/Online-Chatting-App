@@ -156,7 +156,7 @@ scp -i <private-key-name> <jenkins-script> <username>@<ip>:.
 ssh -i <private-key-name> <username>@<ip>
 ```
 
-5. run the script
+5. run the script on baston host
 ```bash
 ./jenkins-install.sh
 ```
@@ -165,12 +165,6 @@ ssh -i <private-key-name> <username>@<ip>
 ```bash
 http://<public-ip-of-baston-host>:8080
 ```
-
-
-
-
-
-
 
 
 ## 🔮 Future Plans
@@ -193,16 +187,4 @@ This project is evolving, and here are a few exciting things on the horizon:
 ![signup](/frontend/public/signup.png)
 
 ![Login](/frontend/public/login.png)
-
-
-
-
-
-
-
-
-
-
-
-
 
