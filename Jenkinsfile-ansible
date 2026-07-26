@@ -1,0 +1,19 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Cloning') {
+            steps {
+                git url: "https://github.com/DattaRahegaonkar/Online-Chatting-App.git", branch: "main"
+            }
+        }
+        stage('Install Java on AppServer') {
+            steps {
+                sh '''
+                    cd ansible
+                    ansible-playbook -i inventory.ini installation-playbook.yml
+                '''
+            }
+        }
+    }
+}
