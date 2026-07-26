@@ -166,6 +166,15 @@ ssh -i <private-key-name> <username>@<ip>
 http://<public-ip-of-baston-host>:8080
 ```
 
+Setup the jenkins and create pipelines
+
+```bash
+sudo mkdir -p /var/lib/jenkins/.ssh
+sudo mv /home/ubuntu/chatapp-key /var/lib/jenkins/.ssh/chatapp-key
+sudo chown -R jenkins:jenkins /var/lib/jenkins/.ssh
+sudo chmod 700 /var/lib/jenkins/.ssh
+sudo chmod 600 /var/lib/jenkins/.ssh/chatapp-key
+```
 
 ## 🔮 Future Plans
 
