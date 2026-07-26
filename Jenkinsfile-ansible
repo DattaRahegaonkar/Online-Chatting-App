@@ -16,4 +16,10 @@ pipeline {
             }
         }
     }
+
+    post {
+        success {
+            build job: 'Deploy-Application-on-AppServer', wait: true
+        }
+    }
 }
