@@ -1,5 +1,5 @@
 ---
-- name: Update Ubuntu and Install Java
+- name: Update Ubuntu and Install packages
   hosts: appserver
   become: true
   vars:
