@@ -7,7 +7,7 @@ pipeline {
                 git url: "https://github.com/DattaRahegaonkar/Online-Chatting-App.git", branch: "main"
             }
         }
-        stage('Install Java on AppServer') {
+        stage('Install packages on AppServer') {
             steps {
                 sh '''
                     cd ansible
