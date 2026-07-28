@@ -1,4 +1,4 @@
-# 💬 Real-Time Online Chat Application
+# 💬 Online Chat Application | AWS | Terraform | Jenkins | Docker | Ansible
 
 ![React](https://img.shields.io/badge/Frontend-React-61DAFB?logo=react)
 ![Node.js](https://img.shields.io/badge/Backend-Node.js-339933?logo=node.js)
@@ -9,6 +9,12 @@
 ![Ansible](https://img.shields.io/badge/Ansible-Automation-EE0000?logo=ansible)
 ![Prometheus](https://img.shields.io/badge/Prometheus-Monitoring-E6522C?logo=prometheus&logoColor=white)
 ![Grafana](https://img.shields.io/badge/Grafana-Dashboard-F46800?logo=grafana&logoColor=white)
+
+![Platform](https://img.shields.io/badge/Platform-AWS-orange)
+![IaC](https://img.shields.io/badge/IaC-Terraform-purple)
+![CI/CD](https://img.shields.io/badge/CI%2FCD-Jenkins-red)
+![Monitoring](https://img.shields.io/badge/Monitoring-Prometheus%20%7C%20Grafana-orange)
+
 
 ## 📝 Introduction
 
@@ -474,11 +480,19 @@ docker compose logs -f
 
 Open the application.
 
-```
-http://<domain-name>
-OR, if a custom domain is not configured:
+```bash
+http://app.<domain-name>
+
+OR
 
 http://<alb-dns>
+```
+
+Monitoring Endpoints
+```bash
+Open the Grafana dashboard : http://grafana.<domain-name>
+
+Verify Prometheus targets : http://prometheus.<domain-name>
 ```
 
 ---
@@ -534,6 +548,7 @@ Chat Application      Prometheus         Grafana
 > * `grafana.<domain-name>` → Grafana Dashboard
 > * `prometheus.<domain-name>` → Prometheus Server
 
+---
 
 # 🔮 Future Improvements
 
@@ -548,24 +563,109 @@ Chat Application      Prometheus         Grafana
 
 # 📚 Project Snapshots
 
-## Settings
+#### 📸 AWS Infrastructure
+---
 
-![Settings](frontend/public/settings.png)
+###### VPC
+
+![vpc](project-snapshots/aws-infra/vpc.png)
 
 ---
 
-## Chat
+###### Subnets
 
-![Chat](frontend/public/chat.png)
+![subnets](project-snapshots/aws-infra/subnets.png)
+
+---
+###### Route Tables
+
+![route-tables](project-snapshots/aws-infra/route-tables.png)
 
 ---
 
-## Sign Up
+###### Internet Gateway
 
-![Signup](frontend/public/signup.png)
+![internet-gateway](project-snapshots/aws-infra/igw.png)
 
 ---
 
-## Login
+###### Nat Gateway
 
-![Login](frontend/public/login.png)
+![nat-gateway](project-snapshots/aws-infra/ngw.png)
+
+---
+
+###### Target groups
+
+![target-groups](project-snapshots/aws-infra/target-groups.png)
+
+---
+
+###### ALB
+
+![alb](project-snapshots/aws-infra/alb.png)
+---
+
+#### 📸 Jenkins Pipeline
+---
+
+###### Pipeline - 1
+
+![Pipeline-1](project-snapshots/jenkins-pipelines/pipeline-1.png)
+
+---
+
+###### Pipeline - 2
+![Pipeline-2](project-snapshots/jenkins-pipelines/pipeline-2.png)
+
+---
+
+#### 📸 Application
+---
+
+###### Settings
+
+![Settings](project-snapshots/application/settings.png)
+
+---
+
+###### Chat
+
+![Chat](project-snapshots/application/chat.png)
+
+---
+
+###### Sign Up
+
+![Signup](project-snapshots/application/signup.png)
+
+---
+
+###### Login
+
+![Login](project-snapshots/application/login.png)
+
+#### 📸 Prometheus Targets (Health Check)
+---
+
+![prometheus-targets](project-snapshots/prometheus-targets/targets.png)
+
+---
+
+#### 📸 Grafana Dashboard
+---
+
+> **Note**
+>
+> This dashboard demonstrates that Grafana is successfully connected to Prometheus and receiving metrics. A custom application dashboard can be added for monitoring chat application metrics.
+
+![grafana-dashboard](project-snapshots/grafana-dashboard/grafana-dashboard.png)
+
+---
+
+#### 📸 Running Docker Containers
+---
+
+![containers](project-snapshots/containers/containers.png)
+
+---
