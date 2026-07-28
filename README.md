@@ -1,5 +1,15 @@
 # 💬 Real-Time Online Chat Application
 
+![React](https://img.shields.io/badge/Frontend-React-61DAFB?logo=react)
+![Node.js](https://img.shields.io/badge/Backend-Node.js-339933?logo=node.js)
+![Docker](https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=white)
+![Terraform](https://img.shields.io/badge/Terraform-7B42BC?logo=terraform)
+![AWS](https://img.shields.io/badge/AWS-Cloud-FF9900?logo=amazonaws)
+![Jenkins](https://img.shields.io/badge/Jenkins-CI%2FCD-D24939?logo=jenkins)
+![Ansible](https://img.shields.io/badge/Ansible-Automation-EE0000?logo=ansible)
+![Prometheus](https://img.shields.io/badge/Prometheus-Monitoring-E6522C?logo=prometheus&logoColor=white)
+![Grafana](https://img.shields.io/badge/Grafana-Dashboard-F46800?logo=grafana&logoColor=white)
+
 ## 📝 Introduction
 
 The **Real-Time Online Chat Application** is a full-stack web application that enables users to communicate instantly through real-time messaging. It is built using modern technologies with a focus on scalability, security, and maintainability.
@@ -90,6 +100,22 @@ CLIENT_ORIGIN=http://localhost,http://<ip>,http://<alb-dns>,http://<domain-name>
 > ```text
 > mongodb://localhost:27017/chatApp
 > ```
+
+---
+
+## Project Structure
+```bash
+Online-Chatting-App
+├── frontend/
+├── backend/
+├── ansible/
+├── terraform/
+├── monitoring/
+├── Jenkinsfile-ansible
+├── Jenkinsfile-deploy
+├── docker-compose.yml
+└── README.md
+```
 
 ---
 
@@ -356,7 +382,7 @@ After the node status changes to **Online**, the App Server is ready to execute 
 
 ## Step 4 - Configure SSH Key for Ansible
 
-First Install the `Ansible` on Bation host
+First, install Ansible on the Bastion Host.
 ```bash
 sudo apt install ansible -y
 ```
@@ -366,16 +392,24 @@ Since Jenkins executes Ansible as the **jenkins** user, move the SSH private key
 ```bash
 sudo mkdir -p /var/lib/jenkins/.ssh
 
-sudo mv /home/ubuntu/chatapp-key /var/lib/jenkins/.ssh/chatapp-key
+sudo mv /home/ubuntu/chatapp-key /var/lib/jenkins/.ssh/<private-key>
 
 sudo chown -R jenkins:jenkins /var/lib/jenkins/.ssh
 
 sudo chmod 700 /var/lib/jenkins/.ssh
 
-sudo chmod 600 /var/lib/jenkins/.ssh/chatapp-key
+sudo chmod 600 /var/lib/jenkins/.ssh/<private-key>
 ```
 
 This allows Jenkins to securely SSH into the private App Server while executing Ansible playbooks.
+
+### First-Time SSH Host Verification
+```bash
+sudo -u jenkins ssh -i /var/lib/jenkins/.ssh/<private-key> ubuntu@<ip-of-app-server>
+```
+> **Why?**
+>
+> During the first Ansible execution, SSH host verification must be completed once for the `jenkins` user. Type `yes` when prompted to add the App Server's fingerprint to the `known_hosts` file. Future Ansible executions will then connect automatically without prompting.
 
 ---
 
@@ -418,6 +452,9 @@ Jenkinsfile
 ```
 Jenkinsfile-deploy
 ```
+> **Note**
+>
+> During the initial bootstrap, Docker is installed and the `ubuntu` user is added to the `docker` group. Reconnect the Jenkins agent once so the updated group membership is applied. This is only required when provisioning a new App Server.
 
 ---
 
@@ -438,17 +475,72 @@ docker compose logs -f
 Open the application.
 
 ```
-http://<application-public-ip>
+http://<domain-name>
+OR, if a custom domain is not configured:
+
+http://<alb-dns>
 ```
 
 ---
+
+## 📊 Monitoring & Observability
+
+The application includes a monitoring stack deployed alongside the application using **Docker Compose**.
+
+### Components
+
+* **Chat Application** – Real-time messaging application.
+* **Prometheus** – Collects application and infrastructure metrics.
+* **Grafana** – Visualizes metrics through interactive dashboards.
+* **Application Load Balancer (ALB)** – Routes incoming requests to the appropriate service using **host-based routing**.
+
+### Access Services
+
+| Service           | URL                               |
+| ----------------- | --------------------------------- |
+| Chat Application  | `http://<domain-name>`            |
+| Grafana Dashboard | `http://grafana.<domain-name>`    |
+| Prometheus        | `http://prometheus.<domain-name>` |
+
+### Architecture
+
+```text
+                 App Server (Private Subnet)
+                          │
+      ┌───────────────────┼───────────────────┐
+      │                   │                   │
+      ▼                   ▼                   ▼
+Chat Application      Prometheus         Grafana
+      │                   │                   │
+      └───────────────────┼───────────────────┘
+                          │
+                          ▼
+        Application Load Balancer (ALB)
+                          │
+      ┌───────────────────┼───────────────────┐
+      │                   │                   │
+      ▼                   ▼                   ▼
+ <domain-name>   prometheus.<domain-name>  grafana.<domain-name>
+                          │
+                          ▼
+                        Users
+```
+
+> **Host-Based Routing**
+>
+> The Application Load Balancer uses host-based routing rules to expose multiple services through a single load balancer:
+>
+> * `<domain-name>` → Chat Application
+> * `grafana.<domain-name>` → Grafana Dashboard
+> * `prometheus.<domain-name>` → Prometheus Server
+
 
 # 🔮 Future Improvements
 
 - [ ] Deploy on Kubernetes (Amazon EKS)
 - [ ] GitOps deployment using ArgoCD
 - [ ] HTTPS using AWS ACM and Application Load Balancer
-- [ ] Monitoring using Prometheus & Grafana
+- [ ] Auto Scaling Group for high availability
 - [ ] Centralized logging using Loki
 - [ ] Automated Docker image build & push using GitHub Actions
 
