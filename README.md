@@ -356,6 +356,11 @@ After the node status changes to **Online**, the App Server is ready to execute 
 
 ## Step 4 - Configure SSH Key for Ansible
 
+First Install the `Ansible` on Bation host
+```bash
+sudo apt install ansible -y
+```
+
 Since Jenkins executes Ansible as the **jenkins** user, move the SSH private key into Jenkins' SSH directory.
 
 ```bash
