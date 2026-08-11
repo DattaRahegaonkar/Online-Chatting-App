@@ -19,7 +19,7 @@ pipeline {
 
     post {
         success {
-            build job: 'Deploy-Application-on-AppServer', wait: true
+            build job: 'Deploy Application on App Server', wait: true
         }
     }
 }
