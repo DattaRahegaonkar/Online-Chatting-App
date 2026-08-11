@@ -9,7 +9,7 @@ pipeline {
         JWT_SECRET = "99Q/2f1Msz+MplHc1WhsQ2/LEXKvIAk65AfxB6JNmx8="
         MONGODB_URI = "mongodb://root:admin@mongodb:27017/chatApp?authSource=admin&retryWrites=true&w=majority"
         COOKIE_SECURE= "false"
-        CLIENT_ORIGIN= "http://localhost,http://10.0.2.134,chatapp-alb-1979887750.eu-west-1.elb.amazonaws.com,http://app.rahegaonkar.site"
+        CLIENT_ORIGIN= "http://localhost,http://10.0.2.120,chatapp-alb-1554110743.eu-west-1.elb.amazonaws.com,http://app.rahegaonkar.site"
     }
 
     stages {
