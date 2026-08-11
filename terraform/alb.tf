@@ -103,13 +103,34 @@ resource "aws_lb_listener" "http" {
   protocol = "HTTP"
 
   default_action {
+    type = "redirect"
+
+    redirect {
+      port        = "443"
+      protocol    = "HTTPS"
+      status_code = "HTTP_301"
+    }
+  }
+}
+
+resource "aws_lb_listener" "https" {
+  load_balancer_arn = aws_lb.tf-app-alb.arn
+
+  port     = 443
+  protocol = "HTTPS"
+
+  ssl_policy = "ELBSecurityPolicy-TLS13-1-2-2021-06"
+
+  certificate_arn = "arn:aws:acm:eu-west-1:972841066657:certificate/84215505-63c9-424b-a8a7-1cb5971f97e5"
+
+  default_action {
     type             = "forward"
     target_group_arn = aws_lb_target_group.tf-app-tg.arn
   }
 }
 
 resource "aws_lb_listener_rule" "grafana" {
-  listener_arn = aws_lb_listener.http.arn
+  listener_arn = aws_lb_listener.https.arn
   priority     = 10
 
   action {
@@ -125,7 +146,7 @@ resource "aws_lb_listener_rule" "grafana" {
 }
 
 resource "aws_lb_listener_rule" "prometheus" {
-  listener_arn = aws_lb_listener.http.arn
+  listener_arn = aws_lb_listener.https.arn
   priority     = 20
 
   action {
@@ -140,3 +161,19 @@ resource "aws_lb_listener_rule" "prometheus" {
   }
 }
 
+
+resource "aws_lb_listener_rule" "acme_challenge" {
+  listener_arn = aws_lb_listener.http.arn
+  priority     = 1
+
+  action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.tf-app-tg.arn
+  }
+
+  condition {
+    path_pattern {
+      values = ["/.well-known/acme-challenge/*"]
+    }
+  }
+}
