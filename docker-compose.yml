@@ -1,9 +1,11 @@
 services:
   frontend:
-    image: dattarahegaonkar09/online-chatting-app-frontend:latest
+    image: dattarahegaonkar09/online-chatting-app-frontend:v2
     container_name: frontend
     ports:
       - "80:80"
+    volumes:
+    - certbot-www:/var/www/certbot
     depends_on:
       - backend
     networks:
@@ -106,6 +108,14 @@ services:
       timeout: 10s
       retries: 5
 
+  certbot:
+    image: certbot/certbot:latest
+    container_name: certbot
+
+    volumes:
+      - certbot-www:/var/www/certbot
+      - letsencrypt:/etc/letsencrypt
+
 networks:
   chatapp-network:
     name: chatapp-network
@@ -117,3 +127,9 @@ volumes:
 
   grafana-data:
     name: grafana-data
+
+  certbot-www:
+    name: certbot-www
+
+  letsencrypt:
+    name: letsencrypt
